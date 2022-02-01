@@ -26,6 +26,8 @@ func main() {
 	Config.DB.AutoMigrate(&Models.User{})
 
 	r := Routes.SetupRouter()
-	// running
+
+	r.LoadHTMLGlob("UI/Templates/index.html")
+
 	r.Run()
 }

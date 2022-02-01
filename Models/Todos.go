@@ -3,7 +3,7 @@ package Models
 import (
 	"fmt"
 
-	"github.com/ektagarg/gin-gorm-todo-app/Config"
+	"alexedwards.net/CC-GO/Config"
 	_ "github.com/go-sql-driver/mysql"
 )
 

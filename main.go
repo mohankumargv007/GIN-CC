@@ -13,7 +13,6 @@ import (
 var err error
 
 func main() {
-	fmt.Println("statuse: dsadsa")
 	Config.DB, err = gorm.Open("mysql", Config.DbURL(Config.BuildDBConfig()))
 	fmt.Println(Config.DB)
 	if err != nil {
@@ -27,7 +26,13 @@ func main() {
 
 	r := Routes.SetupRouter()
 
-	r.LoadHTMLGlob("UI/Templates/index.html")
+	/* r.LoadHTMLGlob("UI/Templates/*.html")
+	r.LoadHTMLGlob("UI/Templates/Pages/Users/*.html")
+	r.LoadHTMLGlob("UI/Templates/Pages/Admin/*.html") */
+	r.LoadHTMLFiles(
+		"UI/Templates/index.html",
+		"UI/Templates/Pages/Users/userDashboard.html",
+		"UI/Templates/Pages/Admin/adminDashboard.html")
 
 	r.Run()
 }

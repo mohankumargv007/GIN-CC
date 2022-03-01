@@ -1,0 +1,35 @@
+{{define "AdminLayout.tmpl"}}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>CC</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="http://localhost:8080/CSS/adminStyle.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            {{template "sidebar.tmpl" .}}
+            <div id="page-content-wrapper">
+                {{template "header.tmpl" .}}
+                <div class="container-fluid">
+                    <main>
+                        {{with .Flash}}
+                            <div class='flash '>{{.}}</div> {{end}}
+                        {{template "main" .}}
+                    </main>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        
+        <script src="http://localhost:8080/JS/layoutJs.js"></script>
+    </body>
+</html>
+{{end}}

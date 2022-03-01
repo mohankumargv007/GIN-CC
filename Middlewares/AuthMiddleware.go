@@ -1,6 +1,9 @@
 package Middlewares
 
 import (
+	"net/http"
+
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,17 +14,12 @@ import (
 } */
 
 func AuthMiddleware(c *gin.Context) {
-	/* session := sessions.Default(c)
-	user := session.Get("user")
-	if user == nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid session token"})
-	} */
-}
-
-/* func AuthMiddleware(c *gin.Context) {
 	session := sessions.Default(c)
-	user := session.Get("user")
+	user := session.Get("id")
 	if user == nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid session token"})
+		data := gin.H{
+			"title": "CC - LOGIN",
+		}
+		c.HTML(http.StatusOK, "index.html", data)
 	}
-} */
+}

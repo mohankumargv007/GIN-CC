@@ -3,11 +3,20 @@ package Routes
 import (
 	"alexedwards.net/CC-GO/Controllers"
 	"alexedwards.net/CC-GO/Middlewares"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+
+	store := cookie.NewStore([]byte("secret"))
+	r.Use(sessions.Sessions("mysession", store))
+
+	r.Use(static.Serve("/CSS", static.LocalFile("./UI/Statics/CSS", true)))
+	r.Use(static.Serve("/JS", static.LocalFile("./UI/Statics/JS", true)))
 
 	v1 := r.Group("/v1")
 	v1.Use(Middlewares.AuthMiddleware)

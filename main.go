@@ -26,13 +26,18 @@ func main() {
 
 	r := Routes.SetupRouter()
 
-	/* r.LoadHTMLGlob("UI/Templates/*.html")
-	r.LoadHTMLGlob("UI/Templates/Pages/Users/*.html")
-	r.LoadHTMLGlob("UI/Templates/Pages/Admin/*.html") */
 	r.LoadHTMLFiles(
 		"UI/Templates/index.html",
-		"UI/Templates/Pages/Users/userDashboard.html",
-		"UI/Templates/Pages/Admin/adminDashboard.html")
+		"UI/Templates/Pages/Users/userDashboard.tmpl",
+		"UI/Templates/Pages/Admin/adminDashboard.tmpl",
+		"UI/Templates/Layouts/AdminLayout.tmpl",
+		"UI/Templates/Layouts/Admin/sidebar.tmpl",
+		"UI/Templates/Layouts/Admin/header.tmpl",
+	)
+
+	/* r.Static("/UI/Statics/CSS", "adminStyle.css")
+	r.Static("/UI/Statics/JS", "admin.js") */
+	//r.Static("/UI/Statics/", "./assets")
 
 	r.Run()
 }

@@ -23,6 +23,7 @@ func main() {
 
 	Config.DB.AutoMigrate(&Models.Todo{})
 	Config.DB.AutoMigrate(&Models.User{})
+	Config.DB.AutoMigrate(&Models.Catergory{})
 
 	r := Routes.SetupRouter()
 
@@ -30,12 +31,17 @@ func main() {
 		"UI/Templates/index.html",
 		"UI/Templates/Pages/Users/userDashboard.tmpl",
 		"UI/Templates/Pages/Admin/adminDashboard.tmpl",
+		"UI/Templates/Pages/Admin/brands.tmpl",
+		"UI/Templates/Pages/Admin/products.tmpl",
 		"UI/Templates/Layouts/AdminLayout.tmpl",
 		"UI/Templates/Layouts/Admin/sidebar.tmpl",
 		"UI/Templates/Layouts/Admin/header.tmpl",
+
+		//Customer Pages
+		//"UI/Templates/Pages/Customer/CustomerLanding.tmpl",
 	)
 
-	/* r.Static("/UI/Statics/CSS", "adminStyle.css")
+	/*r.Static("/UI/Statics/CSS", "adminStyle.css")
 	r.Static("/UI/Statics/JS", "admin.js") */
 	//r.Static("/UI/Statics/", "./assets")
 

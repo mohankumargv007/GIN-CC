@@ -15,6 +15,12 @@ type RequestBody struct {
 	Password string
 }
 
+type Credentials struct {
+	user     Models.User
+	username string
+	password string
+}
+
 func ShowLoginPage(c *gin.Context) {
 	data := gin.H{
 		"title": "CC - LOGIN",
@@ -31,17 +37,20 @@ func ShowLoginPage(c *gin.Context) {
 func PerformLogin(c *gin.Context) {
 	var user Models.User
 	var requestBody RequestBody
+	var Credentials Models.LoginCredentials
 
 	if err := c.BindJSON(&requestBody); err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized", "message": "Please give proper credentails"})
 	}
 
-	username := requestBody.Username
-	password := requestBody.Password
+	fmt.Println(user)
+
+	Credentials.Username = requestBody.Username
+	Credentials.Password = requestBody.Password
 
 	fmt.Println(requestBody)
 
-	err, Id, Name, Role := Models.CheckLoginDetails(&user, username, password)
+	err, UserData := Models.CheckLoginDetails(Credentials)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized", "message": "Username & Passoword doesn't match.Please give proper values"})
 		return
@@ -49,9 +58,9 @@ func PerformLogin(c *gin.Context) {
 
 	//Session
 	session := sessions.Default(c)
-	session.Set("id", Id)
-	session.Set("name", Name)
-	session.Set("role", Role)
+	session.Set("id", UserData.ID)
+	session.Set("name", UserData.FirstName)
+	session.Set("role", UserData.Role)
 	session.Save()
 
 	navigateToRoleBasedAccess(c)

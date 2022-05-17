@@ -28,7 +28,10 @@ func SetupRouter() *gin.Engine {
 		v1.DELETE("todo/:id", Controllers.DeleteATodo)
 	}
 
+	r.GET("/", Controllers.CustomerPage)
+
 	r.GET("login", Controllers.ShowLoginPage)
+
 	r.POST("login", Controllers.PerformLogin)
 
 	r.GET("logout", Controllers.PerformLogout)
@@ -51,6 +54,19 @@ func SetupRouter() *gin.Engine {
 	v4 := r.Group("/admin")
 	{
 		v4.GET("adminDashboard/", Controllers.AdminDashboard)
+		v4.GET("brands/", Controllers.ShowBrandsPage)
+		v4.GET("products/", Controllers.ShowProductsPage)
 	}
+
+	v5 := r.Group("/v5")
+	//v5.Use(Middlewares.AuthMiddleware)
+	{
+		v5.GET("category", Controllers.GetAllCategories)
+		v5.POST("createCatergory", Controllers.CreateCategory)
+		v5.GET("category/:id", Controllers.GetACategory)
+		v5.PUT("category/:id", Controllers.UpdateACategory)
+		v5.DELETE("category/:id", Controllers.DeleteACategory)
+	}
+
 	return r
 }

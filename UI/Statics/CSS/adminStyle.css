@@ -11304,3 +11304,10 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: -15rem;
   }
 }
+
+.layout-style {
+  background: #f1f1f5 !important;
+  margin: 34px 0px 34px 34px !important;
+  padding: 20px !important;
+  width: 94% !important;
+}

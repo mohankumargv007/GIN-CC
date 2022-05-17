@@ -8,6 +8,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+type LoginCredentials struct {
+	User     User
+	Username string
+	Password string
+}
+
 func CreateAUser(user *User) (err error) {
 	if err = Config.DB.Create(user).Error; err != nil {
 		return err
@@ -15,17 +21,18 @@ func CreateAUser(user *User) (err error) {
 	return nil
 }
 
-func CheckLoginDetails(user *User, username string, password string) (err error, Id int, Name string, Role string) {
+func CheckLoginDetails(LoginCredentials LoginCredentials) (error, User) {
 	var userModal User
-	Config.DB.Where("email = ?", username).First(&userModal)
-	if userModal.Email == username {
-		err = bcrypt.CompareHashAndPassword([]byte(userModal.Password), []byte(password))
-		if err != nil {
-			return err, 0, "", ""
+	Config.DB.Where("email = ?", LoginCredentials.Username).First(&userModal)
+	if userModal.Email == LoginCredentials.Username {
+		error := bcrypt.CompareHashAndPassword([]byte(userModal.Password), []byte(LoginCredentials.Password))
+		if error != nil {
+			return error, userModal
 		}
-		return nil, int(userModal.ID), userModal.FirstName + "" + userModal.LastName, userModal.Role
+
+		return nil, userModal
 	} else {
-		err := errors.New("User name does not match")
-		return err, 0, "", ""
+		error := errors.New("User name does not match")
+		return error, userModal
 	}
 }
